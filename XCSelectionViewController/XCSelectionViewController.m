@@ -34,7 +34,16 @@
     [self createScrollView];
     [self creatUnderLine];
     [self createContenView];
+    _selectedIndex = -1;
     [self selectedIndex:0];
+    
+  
+    UISwipeGestureRecognizer *leftSwip = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwip:)];
+    leftSwip.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:leftSwip];
+    UISwipeGestureRecognizer *rightSwip = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwip:)];
+    rightSwip.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:rightSwip];
 }
 
 #pragma mark - createUI
@@ -97,7 +106,7 @@
         NSInteger index = [weakSelf selectedItemWithLoaction:location];
         
         if (index != NSNotFound) {
-            [weakSelf gotoCenterWithIndex:index];
+            
             [weakSelf selectedIndex:index];
         }
         
@@ -178,21 +187,26 @@
 
 - (void)selectedIndex:(NSInteger)index
 {
-    UIViewController *oldVC = self.childViewControllers[self.selectedIndex];
-    [oldVC.view removeFromSuperview];
+    if(_selectedIndex == index) return;
+    if (_selectedIndex >= 0) {
+        UIViewController *oldVC = self.childViewControllers[self.selectedIndex];
+        [oldVC.view removeFromSuperview];
+    }
+    
     _selectedIndex = index;
     [self moveUnderLineWithSelectedIndex:self.selectedIndex];
     UIViewController *newVC = self.childViewControllers[self.selectedIndex];
     self.title = self.titles[index];
     [self.contentView addSubview:newVC.view];
+    [self gotoCenterWithIndex:index];
 }
+
 #pragma mark - 父类的方法
 - (void)addChildViewController:(UIViewController *)childController
 {
     [super addChildViewController:childController];
     
 }
-
 
 #pragma mark - 对外接口
 + (instancetype)selectionViewControllerWithChildViewControllers:(NSArray<UIViewController *> *)childViewControllers titles:(NSArray<NSString *> *)titles
@@ -206,6 +220,23 @@
     return selectionViewController;
 }
 
-
+#pragma mark - action
+- (void)onSwip:(UISwipeGestureRecognizer *)swip
+{
+    NSInteger nextPage;
+    if (swip.direction == UISwipeGestureRecognizerDirectionLeft) {
+        nextPage = _selectedIndex+1;
+        if (nextPage >= self.childViewControllers.count) {
+            nextPage = self.childViewControllers.count - 1;
+        }
+    }else if (swip.direction == UISwipeGestureRecognizerDirectionRight)
+    {
+        nextPage = _selectedIndex - 1;
+        if (nextPage < 0) {
+            nextPage = 0;
+        }
+    }
+    [self selectedIndex:nextPage];
+}
 
 @end
