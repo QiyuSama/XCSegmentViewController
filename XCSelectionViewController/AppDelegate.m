@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "XCSelectionViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _window.backgroundColor = [UIColor whiteColor];
+    UIViewController *vc1 = [UIViewController new];
+    vc1.view.backgroundColor = [UIColor blueColor];
+    UIViewController *vc2 = [UIViewController new];
+    vc2.view.backgroundColor = [UIColor yellowColor];
+    UIViewController *vc3 = [UIViewController new];
+    vc3.view.backgroundColor = [UIColor greenColor];
+    UIViewController *vc4 = [UIViewController new];
+    vc4.view.backgroundColor = [UIColor redColor];
+    XCSelectionViewController *vc = [XCSelectionViewController selectionViewControllerWithChildViewControllers:@[vc1, vc2, vc3, vc4] titles:@[@"1222222222222222", @"2222222", @"322222222", @"4222222"]];
+//    vc.view.backgroundColor = [UIColor redColor];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    _window.rootViewController = nav;
+    [_window makeKeyAndVisible];
     return YES;
 }
 

@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		3BED31CE1CD9955D009B8A69 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BED31CD1CD9955D009B8A69 /* main.m */; };
 		3BED31D11CD9955D009B8A69 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BED31D01CD9955D009B8A69 /* AppDelegate.m */; };
-		3BED31D41CD9955D009B8A69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BED31D31CD9955D009B8A69 /* ViewController.m */; };
 		3BED31D71CD9955D009B8A69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BED31D51CD9955D009B8A69 /* Main.storyboard */; };
 		3BED31D91CD9955D009B8A69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BED31D81CD9955D009B8A69 /* Assets.xcassets */; };
 		3BED31DC1CD9955D009B8A69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BED31DA1CD9955D009B8A69 /* LaunchScreen.storyboard */; };
+		3BED31E51CD995B8009B8A69 /* XCSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BED31E41CD995B8009B8A69 /* XCSelectionViewController.m */; };
+		3BED31E81CD99C36009B8A69 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BED31E71CD99C36009B8A69 /* UIView+Extension.m */; };
+		3BED31EB1CD9C6B9009B8A69 /* XCScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BED31EA1CD9C6B9009B8A69 /* XCScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +22,16 @@
 		3BED31CD1CD9955D009B8A69 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BED31CF1CD9955D009B8A69 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3BED31D01CD9955D009B8A69 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3BED31D21CD9955D009B8A69 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3BED31D31CD9955D009B8A69 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3BED31D61CD9955D009B8A69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3BED31D81CD9955D009B8A69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BED31DB1CD9955D009B8A69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3BED31DD1CD9955D009B8A69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BED31E31CD995B8009B8A69 /* XCSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCSelectionViewController.h; sourceTree = "<group>"; };
+		3BED31E41CD995B8009B8A69 /* XCSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCSelectionViewController.m; sourceTree = "<group>"; };
+		3BED31E61CD99C36009B8A69 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		3BED31E71CD99C36009B8A69 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		3BED31E91CD9C6B9009B8A69 /* XCScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCScrollView.h; sourceTree = "<group>"; };
+		3BED31EA1CD9C6B9009B8A69 /* XCScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCScrollView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,15 +64,19 @@
 		3BED31CB1CD9955D009B8A69 /* XCSelectionViewController */ = {
 			isa = PBXGroup;
 			children = (
+				3BED31E31CD995B8009B8A69 /* XCSelectionViewController.h */,
+				3BED31E41CD995B8009B8A69 /* XCSelectionViewController.m */,
+				3BED31E61CD99C36009B8A69 /* UIView+Extension.h */,
+				3BED31E71CD99C36009B8A69 /* UIView+Extension.m */,
 				3BED31CF1CD9955D009B8A69 /* AppDelegate.h */,
 				3BED31D01CD9955D009B8A69 /* AppDelegate.m */,
-				3BED31D21CD9955D009B8A69 /* ViewController.h */,
-				3BED31D31CD9955D009B8A69 /* ViewController.m */,
 				3BED31D51CD9955D009B8A69 /* Main.storyboard */,
 				3BED31D81CD9955D009B8A69 /* Assets.xcassets */,
 				3BED31DA1CD9955D009B8A69 /* LaunchScreen.storyboard */,
 				3BED31DD1CD9955D009B8A69 /* Info.plist */,
 				3BED31CC1CD9955D009B8A69 /* Supporting Files */,
+				3BED31E91CD9C6B9009B8A69 /* XCScrollView.h */,
+				3BED31EA1CD9C6B9009B8A69 /* XCScrollView.m */,
 			);
 			path = XCSelectionViewController;
 			sourceTree = "<group>";
@@ -150,8 +160,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BED31D41CD9955D009B8A69 /* ViewController.m in Sources */,
+				3BED31E81CD99C36009B8A69 /* UIView+Extension.m in Sources */,
 				3BED31D11CD9955D009B8A69 /* AppDelegate.m in Sources */,
+				3BED31E51CD995B8009B8A69 /* XCSelectionViewController.m in Sources */,
+				3BED31EB1CD9C6B9009B8A69 /* XCScrollView.m in Sources */,
 				3BED31CE1CD9955D009B8A69 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +277,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = XCSelectionViewController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.novel-supertv.XCSelectionViewController";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -276,6 +289,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = XCSelectionViewController/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.novel-supertv.XCSelectionViewController";
 				PRODUCT_NAME = "$(TARGET_NAME)";
