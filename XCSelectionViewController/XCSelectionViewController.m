@@ -12,7 +12,7 @@
 #define kTitleFont ([UIFont systemFontOfSize:17])
 #define kMargin 20
 
-@interface XCSelectionViewController ()
+@interface XCSelectionViewController () <UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 @property (copy, nonatomic) NSArray *titles;
 @property (copy, nonatomic) NSArray<UILabel *> *titleLabels;
 @property (strong, nonatomic) XCScrollView *scrollView;
@@ -20,7 +20,8 @@
 @property (assign, nonatomic) CGFloat margin;
 @property (strong, nonatomic) UIView *underLine;
 @property (assign, nonatomic) NSInteger selectedIndex;
-@property (strong, nonatomic) UIView *contentView;
+@property (strong, nonatomic) UICollectionView *contentView;
+@property (assign, nonatomic) BOOL isSwip;
 @end
 
 @implementation XCSelectionViewController
@@ -38,12 +39,7 @@
     [self selectedIndex:0];
     
   
-    UISwipeGestureRecognizer *leftSwip = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwip:)];
-    leftSwip.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:leftSwip];
-    UISwipeGestureRecognizer *rightSwip = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwip:)];
-    rightSwip.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:rightSwip];
+    
 }
 
 #pragma mark - createUI
@@ -114,11 +110,20 @@
     return _scrollView;
 }
 
-- (UIView *)createContenView
+- (UICollectionView *)createContenView
 {
-    _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollView.frame), _scrollView.width, self.view.height - CGRectGetMaxY(_scrollView.frame))];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    _contentView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollView.frame), _scrollView.width, self.view.height - CGRectGetMaxY(_scrollView.frame))collectionViewLayout:flowLayout];
     [self.view addSubview:_contentView];
-    
+    flowLayout.itemSize = _contentView.frame.size;
+    flowLayout.minimumLineSpacing = 0;
+    [_contentView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class])];
+    _contentView.dataSource = self;
+    _contentView.delegate = self;
+    _contentView.pagingEnabled = YES;
+    _contentView.bounces = NO;
+    _contentView.showsHorizontalScrollIndicator = NO;
     return _contentView;
 }
 
@@ -188,16 +193,21 @@
 - (void)selectedIndex:(NSInteger)index
 {
     if(_selectedIndex == index) return;
-    if (_selectedIndex >= 0) {
-        UIViewController *oldVC = self.childViewControllers[self.selectedIndex];
-        [oldVC.view removeFromSuperview];
-    }
+
     
     _selectedIndex = index;
+    
+    if (!_isSwip) {
+        [_contentView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    }else
+    {
+        _isSwip = NO;
+    }
+    
     [self moveUnderLineWithSelectedIndex:self.selectedIndex];
-    UIViewController *newVC = self.childViewControllers[self.selectedIndex];
+
     self.title = self.titles[index];
-    [self.contentView addSubview:newVC.view];
+
     [self gotoCenterWithIndex:index];
 }
 
@@ -221,22 +231,26 @@
 }
 
 #pragma mark - action
-- (void)onSwip:(UISwipeGestureRecognizer *)swip
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger nextPage;
-    if (swip.direction == UISwipeGestureRecognizerDirectionLeft) {
-        nextPage = _selectedIndex+1;
-        if (nextPage >= self.childViewControllers.count) {
-            nextPage = self.childViewControllers.count - 1;
-        }
-    }else if (swip.direction == UISwipeGestureRecognizerDirectionRight)
-    {
-        nextPage = _selectedIndex - 1;
-        if (nextPage < 0) {
-            nextPage = 0;
-        }
-    }
-    [self selectedIndex:nextPage];
+    return self.childViewControllers.count;
 }
 
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([UICollectionViewCell class]) forIndexPath:indexPath];
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [cell.contentView addSubview:self.childViewControllers[indexPath.row].view];
+    
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    _isSwip = YES;
+    [self selectedIndex:indexPath.row];
+}
 @end
