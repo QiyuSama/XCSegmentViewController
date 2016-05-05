@@ -315,6 +315,7 @@
 				3BED31E21CD9955D009B8A69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

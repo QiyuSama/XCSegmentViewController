@@ -21,7 +21,6 @@
 @property (strong, nonatomic) UIView *underLine;
 @property (assign, nonatomic) NSInteger selectedIndex;
 @property (strong, nonatomic) UICollectionView *contentView;
-@property (assign, nonatomic) BOOL isSwip;
 @end
 
 @implementation XCSelectionViewController
@@ -37,8 +36,6 @@
     [self createContenView];
     _selectedIndex = -1;
     [self selectedIndex:0];
-    
-  
     
 }
 
@@ -139,6 +136,7 @@
     return _underLine;
 }
 
+//移动下划线到选中的label下
 - (void)moveUnderLineWithSelectedIndex:(NSInteger)index
 {
     [UIView animateWithDuration:0.5 animations:^{
@@ -148,6 +146,7 @@
     }];
 }
 
+//返回选中的item索引
 - (NSInteger)selectedItemWithLoaction:(CGPoint)location
 {
     NSInteger index = NSNotFound;
@@ -160,6 +159,7 @@
     return index;
 }
 
+//当所有item的width加上所有margin的和小于屏幕的宽度时设置新的margin
 - (void)reCountLabelX
 {
     CGFloat allWidth;
@@ -177,6 +177,7 @@
     }
 }
 
+//label居中
 - (void)gotoCenterWithIndex:(NSInteger)index
 {
     UILabel *label = _titleLabels[index];
@@ -190,6 +191,7 @@
     [_scrollView setContentOffset:CGPointMake(centerOffsetX, 0) animated:YES];
 }
 
+//点击label
 - (void)selectedIndex:(NSInteger)index
 {
     if(_selectedIndex == index) return;
@@ -197,13 +199,8 @@
     
     _selectedIndex = index;
     
-    if (!_isSwip) {
-        [_contentView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
-    }else
-    {
-        _isSwip = NO;
-    }
-    
+
+    [_contentView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     [self moveUnderLineWithSelectedIndex:self.selectedIndex];
 
     self.title = self.titles[index];
@@ -212,11 +209,6 @@
 }
 
 #pragma mark - 父类的方法
-- (void)addChildViewController:(UIViewController *)childController
-{
-    [super addChildViewController:childController];
-    
-}
 
 #pragma mark - 对外接口
 + (instancetype)selectionViewControllerWithChildViewControllers:(NSArray<UIViewController *> *)childViewControllers titles:(NSArray<NSString *> *)titles
@@ -250,7 +242,8 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    _isSwip = YES;
-    [self selectedIndex:indexPath.row];
+    _selectedIndex = indexPath.row;
+    [self moveUnderLineWithSelectedIndex:indexPath.row];
+    [self gotoCenterWithIndex:indexPath.row];
 }
 @end
