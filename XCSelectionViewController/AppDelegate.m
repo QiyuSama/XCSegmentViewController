@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "XCSelectionViewController.h"
+#import "XCSegementViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,21 +17,19 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    _window.backgroundColor = [UIColor whiteColor];
-    UIViewController *vc1 = [UIViewController new];
-    vc1.view.backgroundColor = [UIColor blueColor];
-    UIViewController *vc2 = [UIViewController new];
-    vc2.view.backgroundColor = [UIColor yellowColor];
-    UIViewController *vc3 = [UIViewController new];
-    vc3.view.backgroundColor = [UIColor greenColor];
-    UIViewController *vc4 = [UIViewController new];
-    vc4.view.backgroundColor = [UIColor redColor];
-    XCSelectionViewController *vc = [XCSelectionViewController selectionViewControllerWithChildViewControllers:@[vc1, vc2, vc3, vc4] titles:@[@"1222222222222222", @"2222222", @"322222222", @"4222222"]];
-//    vc.view.backgroundColor = [UIColor redColor];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    _window.rootViewController = nav;
-    [_window makeKeyAndVisible];
+    self.window.backgroundColor = [UIColor whiteColor];
+    XCSegementViewController *seg = [XCSegementViewController segementViewController];
+    NSMutableArray *viewControllers = @[].mutableCopy;
+    NSArray *colors = @[[UIColor redColor], [UIColor greenColor], [UIColor purpleColor], [UIColor blueColor]];
+    for (NSInteger i = 1; i < 5; i++) {
+        UIViewController *vc = [UIViewController new];
+        vc.xc_segTitle = [NSString stringWithFormat:@"vc%zd", i];
+        [viewControllers addObject:vc];
+        vc.view.backgroundColor = colors[i - 1];
+    }
+    seg.viewControllers = viewControllers;
+    self.window.rootViewController = seg;
+    [self.window makeKeyWindow];
     return YES;
 }
 
