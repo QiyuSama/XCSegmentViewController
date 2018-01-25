@@ -3,7 +3,7 @@
         vc.xc_segTitle = @"title";</p>
 <p>3、设置seg的viewControllers属性</p>
 <code>
-        <div></div>XCSegementViewController *seg = [XCSegementViewController segementViewController];<
+        <div></div>XCSegementViewController *seg = [XCSegementViewController segementViewController];
         <div></div> NSMutableArray *viewControllers = @[].mutableCopy;
         <div></div>NSArray *colors = @[[UIColor redColor], [UIColor greenColor], [UIColor purpleColor], [UIColor blueColor]];
         <div></div>for (NSInteger i = 1; i < 5; i++) {
